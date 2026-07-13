@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Object Oriented Pattern and Design — kobir079</title>
+<meta name="description" content="A 10-module course on Object Oriented Programming and classic design patterns, with Java code examples for every concept.">
+<link rel="stylesheet" href="../../assets/css/style.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+<style>.hljs{ background:transparent !important; }</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap bar">
+    <a href="../../index.html" class="brand"><span class="dot">&#9632;</span> kobir079<span style="color:var(--ink-soft); font-weight:400;">/course-library</span></a>
+    <nav class="main-nav">
+      <a href="../index.html">Courses</a>
+      <a href="index.html">OOP &amp; Design Patterns</a>
+      <a href="../../ict/index.html" class="ict-badge">
+        <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="1" y="1" width="38" height="38" rx="4" stroke="#0B2E4A" stroke-width="2" fill="#F3F8FB"/>
+          <circle cx="20" cy="12" r="4" fill="#1B5A82"/>
+          <circle cx="10" cy="28" r="4" fill="#E8A33D"/>
+          <circle cx="30" cy="28" r="4" fill="#E8A33D"/>
+          <path d="M20 16 L10 24 M20 16 L30 24" stroke="#0B2E4A" stroke-width="2"/>
+        </svg>
+        <span class="txt"><b>MBSTU</b>ICT Dept.</span>
+      </a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<div class="wrap course-shell">
+
+  <!-- ================= SIDEBAR TOC ================= -->
+  <aside class="course-toc">
+    <div class="toc-title">Modules</div>
+    <ol>
+      <li><a href="#m1">Introduction to OOP</a></li>
+      <li><a href="#m2">Classes &amp; Objects</a></li>
+      <li><a href="#m3">Encapsulation</a></li>
+      <li><a href="#m4">Inheritance</a></li>
+      <li><a href="#m5">Polymorphism</a></li>
+      <li><a href="#m6">Abstraction</a></li>
+      <li><a href="#m7">Interfaces</a></li>
+      <li><a href="#m8">Access Modifiers &amp; Packages</a></li>
+      <li><a href="#m9">SOLID Principles</a></li>
+      <li><a href="#m10">Intro to Design Patterns</a></li>
+    </ol>
+  </aside>
+
+  <!-- ================= MAIN CONTENT ================= -->
+  <div>
+    <div class="course-intro">
+      <div class="eyebrow">Course</div>
+      <h1>Object Oriented Pattern and Design</h1>
+      <p class="lead">Ten modules covering the theory and the reasoning behind Object Oriented Programming, from the four pillars to real design patterns — every idea backed by a Java example you can run.</p>
+      <div class="course-meta">
+        <div><b>10</b>Modules</div>
+        <div><b>Java</b>Language</div>
+        <div><b>Beginner &rarr; Intermediate</b>Level</div>
+        <div><b>kobir079</b>Author</div>
+      </div>
+    </div>
+
+    <div class="editable-note">This page is a living document — module content can be edited directly in <code>/courses/oop-design-patterns/index.html</code> as the course is refined.</div>
+
+    <!-- MODULE 1 -->
+    <section class="module" id="m1">
+      <div class="mod-head"><span class="num">01</span><h3>Introduction to OOP</h3></div>
+      <div class="mod-body">
+        <p>Object Oriented Programming (OOP) is a way of structuring code around <strong>objects</strong> — self-contained units that bundle data (fields) and behavior (methods) together. Instead of writing a program as a long sequence of steps that operate on loose data (the procedural style), OOP models a program as a set of interacting objects, each responsible for its own state and its own logic.</p>
+        <p>Every mainstream OOP language, including Java, is built around four core ideas, often called the <strong>four pillars</strong>: encapsulation, inheritance, polymorphism, and abstraction. This course dedicates a module to each one before moving into interfaces, design principles, and design patterns.</p>
+        <ul>
+          <li><strong>Procedural style:</strong> functions operate on data passed around between them.</li>
+          <li><strong>Object oriented style:</strong> data and the functions that operate on it live together inside an object.</li>
+        </ul>
+        <h4>Java example</h4>
+        <div class="code-label">A tiny first look at an object <span class="file">Car.java</span></div>
+        <pre><code class="language-java">public class Car {
+    // fields (state)
+    private String model;
+    private int speed;
+
+    // constructor
+    public Car(String model) {
+        this.model = model;
+        this.speed = 0;
+    }
+
+    // method (behavior)
+    public void accelerate(int amount) {
+        speed += amount;
+        System.out.println(model + " is now going " + speed + " km/h");
+    }
+
+    public static void main(String[] args) {
+        Car myCar = new Car("Corolla");
+        myCar.accelerate(20);
+        myCar.accelerate(15);
+    }
+}</code></pre>
+      </div>
+    </section>
+
+    <!-- MODULE 2 -->
+    <section class="module" id="m2">
+      <div class="mod-head"><span class="num">02</span><h3>Classes &amp; Objects</h3></div>
+      <div class="mod-body">
+        <p>A <strong>class</strong> is a blueprint — it declares what fields and methods every object built from it will have. An <strong>object</strong> is a concrete instance of that blueprint, created with the <code>new</code> keyword, living in memory with its own copy of the instance fields.</p>
+        <p>The <strong>constructor</strong> is a special method, matching the class name, that runs automatically when an object is created — it's the natural place to set up initial state. The keyword <code>this</code> refers to the current object, and is most often used to disambiguate a field from a constructor parameter with the same name.</p>
+        <h4>Java example</h4>
+        <div class="code-label">Class, constructor, and object creation <span class="file">Student.java</span></div>
+        <pre><code class="language-java">public class Student {
+    private String name;
+    private int roll;
+
+    public Student(String name, int roll) {
+        this.name = name;   // this.name = field, name = parameter
+        this.roll = roll;
+    }
+
+    public void introduce() {
+        System.out.println("Hi, I'm " + name + ", roll no. " + roll);
+    }
+
+    public static void main(String[] args) {
+        Student s1 = new Student("Kobir", 79);
+        Student s2 = new Student("Alam", 12);
+        s1.introduce();
+        s2.introduce();
+    }
+}</code></pre>
+      </div>
+    </section>
+
+    <!-- MODULE 3 -->
+    <section class="module" id="m3">
+      <div class="mod-head"><span class="num">03</span><h3>Encapsulation</h3></div>
+      <div class="mod-body">
+        <p><strong>Encapsulation</strong> means hiding an object's internal state and only exposing it through a controlled interface — typically public methods. Fields are marked <code>private</code> so outside code cannot set them directly to invalid values; instead, <strong>getters</strong> and <strong>setters</strong> mediate access, and setters can validate before accepting a change.</p>
+        <p>This matters because it protects an object's invariants. A <code>BankAccount</code> should never be able to hold a negative balance just because some other class assigned to it directly — encapsulation makes that impossible by construction.</p>
+        <h4>Java example</h4>
+        <div class="code-label">Private fields guarded by validating methods <span class="file">BankAccount.java</span></div>
+        <pre><code class="language-java">public class BankAccount {
+    private double balance;
+
+    public BankAccount(double openingBalance) {
+        this.balance = openingBalance;
+    }
+
+    public double getBalance() {
+        return balance;
+    }
+
+    public void deposit(double amount) {
+        if (amount <= 0) throw new IllegalArgumentException("Deposit must be positive");
+        balance += amount;
+    }
+
+    public void withdraw(double amount) {
+        if (amount > balance) throw new IllegalStateException("Insufficient funds");
+        balance -= amount;
+    }
+
+    public static void main(String[] args) {
+        BankAccount acc = new BankAccount(1000);
+        acc.deposit(500);
+        acc.withdraw(200);
+        System.out.println("Balance: " + acc.getBalance()); // 1300.0
+    }
+}</code></pre>
+      </div>
+    </section>
+
+    <!-- MODULE 4 -->
+    <section class="module" id="m4">
+      <div class="mod-head"><span class="num">04</span><h3>Inheritance</h3></div>
+      <div class="mod-body">
+        <p><strong>Inheritance</strong> lets one class (the subclass) reuse and extend the fields and methods of another (the superclass), using <code>extends</code>. It models an <strong>IS-A</strong> relationship — a <code>Dog</code> IS-A <code>Animal</code>. The subclass automatically gets everything non-private from the parent, and can add new members or override existing ones.</p>
+        <p>The keyword <code>super</code> is used inside a subclass to call the parent's constructor or an overridden parent method explicitly.</p>
+        <h4>Java example</h4>
+        <div class="code-label">A subclass extending a shared parent <span class="file">Animal.java</span></div>
+        <pre><code class="language-java">public class Animal {
+    protected String name;
+
+    public Animal(String name) {
+        this.name = name;
+    }
+
+    public void eat() {
+        System.out.println(name + " is eating");
+    }
+
+    public void makeSound() {
+        System.out.println(name + " makes a generic sound");
+    }
+}
+
+class Dog extends Animal {
+    public Dog(String name) {
+        super(name); // calls Animal's constructor
+    }
+
+    @Override
+    public void makeSound() {
+        System.out.println(name + " barks: Woof!");
+    }
+
+    public static void main(String[] args) {
+        Dog d = new Dog("Tommy");
+        d.eat();        // inherited from Animal
+        d.makeSound();  // overridden in Dog
+    }
+}</code></pre>
+      </div>
+    </section>
+
+    <!-- MODULE 5 -->
+    <section class="module" id="m5">
+      <div class="mod-head"><span class="num">05</span><h3>Polymorphism</h3></div>
+      <div class="mod-body">
+        <p><strong>Polymorphism</strong> means "many forms" — the same method call behaves differently depending on the actual object involved. Java has two kinds:</p>
+        <ul>
+          <li><strong>Compile-time (overloading):</strong> multiple methods share a name but differ in parameters; the compiler picks the right one.</li>
+          <li><strong>Runtime (overriding):</strong> a subclass redefines a parent method; the version that actually runs is decided by the object's real type, not its declared type — this is called <strong>dynamic dispatch</strong>.</li>
+        </ul>
+        <h4>Java example</h4>
+        <div class="code-label">Runtime polymorphism across a shape hierarchy <span class="file">Shape.java</span></div>
+        <pre><code class="language-java">abstract class Shape {
+    public abstract double area();
+}
+
+class Circle extends Shape {
+    private double radius;
+    public Circle(double radius) { this.radius = radius; }
+    public double area() { return Math.PI * radius * radius; }
+}
+
+class Rectangle extends Shape {
+    private double w, h;
+    public Rectangle(double w, double h) { this.w = w; this.h = h; }
+    public double area() { return w * h; }
+}
+
+public class ShapeDemo {
+    public static void main(String[] args) {
+        Shape[] shapes = { new Circle(3), new Rectangle(4, 5) };
+        for (Shape s : shapes) {
+            // the correct area() runs based on the OBJECT's real type
+            System.out.println(s.getClass().getSimpleName() + " area: " + s.area());
+        }
+    }
+}</code></pre>
+      </div>
+    </section>
+
+    <!-- MODULE 6 -->
+    <section class="module" id="m6">
+      <div class="mod-head"><span class="num">06</span><h3>Abstraction</h3></div>
+      <div class="mod-body">
+        <p><strong>Abstraction</strong> means exposing only what a caller needs to know, and hiding how it's actually done. In Java this is expressed with <strong>abstract classes</strong> (which can mix concrete and abstract methods) and <strong>interfaces</strong> (pure contracts). An abstract method has no body — subclasses are forced to provide one.</p>
+        <p>The payoff: calling code depends on a stable contract, not on the details of how each implementation works internally — so implementations can change freely.</p>
+        <h4>Java example</h4>
+        <div class="code-label">Abstracting "how to pay" behind one contract <span class="file">Payment.java</span></div>
+        <pre><code class="language-java">abstract class Payment {
+    public abstract void process(double amount);
+
+    public void receipt(double amount) {
+        System.out.println("Receipt for $" + amount);
+    }
+}
+
+class CreditCardPayment extends Payment {
+    public void process(double amount) {
+        System.out.println("Charging $" + amount + " to credit card");
+    }
+}
+
+class PaypalPayment extends Payment {
+    public void process(double amount) {
+        System.out.println("Sending $" + amount + " via PayPal");
+    }
+}
+
+public class CheckoutDemo {
+    public static void main(String[] args) {
+        Payment payment = new PaypalPayment(); // could be swapped freely
+        payment.process(49.99);
+        payment.receipt(49.99);
+    }
+}</code></pre>
+      </div>
+    </section>
+
+    <!-- MODULE 7 -->
+    <section class="module" id="m7">
+      <div class="mod-head"><span class="num">07</span><h3>Interfaces</h3></div>
+      <div class="mod-body">
+        <p>An <strong>interface</strong> declares method signatures with no implementation (plus optional <code>default</code> methods since Java 8) and no state of its own. A class implements an interface with <code>implements</code>, promising to fill in every abstract method. Unlike class inheritance, a single class can implement <strong>multiple</strong> interfaces — this is how Java gets the benefits of multiple inheritance of type without the "diamond problem" of multiple inheritance of state.</p>
+        <h4>Java example</h4>
+        <div class="code-label">One class, two independent behavior contracts <span class="file">Duck.java</span></div>
+        <pre><code class="language-java">interface Flyable {
+    void fly();
+}
+
+interface Swimmable {
+    void swim();
+}
+
+class Duck implements Flyable, Swimmable {
+    public void fly() {
+        System.out.println("The duck flies low over the pond");
+    }
+    public void swim() {
+        System.out.println("The duck paddles across the pond");
+    }
+
+    public static void main(String[] args) {
+        Duck d = new Duck();
+        d.fly();
+        d.swim();
+    }
+}</code></pre>
+      </div>
+    </section>
+
+    <!-- MODULE 8 -->
+    <section class="module" id="m8">
+      <div class="mod-head"><span class="num">08</span><h3>Access Modifiers &amp; Packages</h3></div>
+      <div class="mod-body">
+        <p>Java controls visibility with four access levels: <code>private</code> (class only), <em>default / package-private</em> (same package), <code>protected</code> (same package, plus subclasses elsewhere), and <code>public</code> (everywhere). Choosing the narrowest level that still works is a direct extension of encapsulation — it limits how much of a class's internals the rest of the codebase can depend on.</p>
+        <p><strong>Packages</strong> group related classes under a namespace (e.g. <code>com.kobir079.banking</code>), which avoids name clashes and lets package-private members act as an "internal API" visible only within that package.</p>
+        <h4>Java example</h4>
+        <div class="code-label">Access levels side by side <span class="file">Visibility.java</span></div>
+        <pre><code class="language-java">package com.kobir079.banking;
+
+public class Visibility {
+    private int secret = 1;        // only inside this class
+    int packageVisible = 2;        // only inside com.kobir079.banking
+    protected int forSubclasses = 3; // package + subclasses elsewhere
+    public int forEveryone = 4;    // accessible from any package
+}</code></pre>
+      </div>
+    </section>
+
+    <!-- MODULE 9 -->
+    <section class="module" id="m9">
+      <div class="mod-head"><span class="num">09</span><h3>SOLID Principles</h3></div>
+      <div class="mod-body">
+        <p>SOLID is a set of five design guidelines that keep object-oriented code flexible and easy to change as requirements grow.</p>
+        <ul>
+          <li><strong>S — Single Responsibility:</strong> a class should have one reason to change.</li>
+          <li><strong>O — Open/Closed:</strong> open for extension, closed for modification — add behavior via new code, not by editing existing working code.</li>
+          <li><strong>L — Liskov Substitution:</strong> a subclass should be usable anywhere its parent type is expected, without breaking correctness.</li>
+          <li><strong>I — Interface Segregation:</strong> prefer several small, focused interfaces over one large one that forces classes to implement methods they don't need.</li>
+          <li><strong>D — Dependency Inversion:</strong> depend on abstractions (interfaces), not on concrete implementations.</li>
+        </ul>
+        <h4>Java example</h4>
+        <div class="code-label">Dependency Inversion in practice <span class="file">NotificationService.java</span></div>
+        <pre><code class="language-java">interface MessageSender {
+    void send(String message);
+}
+
+class EmailSender implements MessageSender {
+    public void send(String message) { System.out.println("Email: " + message); }
+}
+
+class SmsSender implements MessageSender {
+    public void send(String message) { System.out.println("SMS: " + message); }
+}
+
+// depends on the ABSTRACTION, not a specific sender
+class NotificationService {
+    private final MessageSender sender;
+
+    public NotificationService(MessageSender sender) {
+        this.sender = sender;
+    }
+
+    public void notifyUser(String message) {
+        sender.send(message);
+    }
+}
+
+public class SolidDemo {
+    public static void main(String[] args) {
+        NotificationService service = new NotificationService(new EmailSender());
+        service.notifyUser("Your order has shipped");
+    }
+}</code></pre>
+      </div>
+    </section>
+
+    <!-- MODULE 10 -->
+    <section class="module" id="m10">
+      <div class="mod-head"><span class="num">10</span><h3>Intro to Design Patterns</h3></div>
+      <div class="mod-body">
+        <p><strong>Design patterns</strong> are reusable, named solutions to problems that come up repeatedly in object-oriented design. They aren't finished code to copy-paste — they're a shared vocabulary for a proven structure. This module introduces three common ones.</p>
+
+        <h4>Singleton — exactly one instance</h4>
+        <div class="code-label">Only one configuration object should ever exist <span class="file">AppConfig.java</span></div>
+        <pre><code class="language-java">class AppConfig {
+    private static AppConfig instance;
+    private AppConfig() {} // private constructor blocks outside "new"
+
+    public static AppConfig getInstance() {
+        if (instance == null) {
+            instance = new AppConfig();
+        }
+        return instance;
+    }
+}</code></pre>
+
+        <h4>Factory — delegate object creation</h4>
+        <div class="code-label">Callers ask for a shape by name, not by class <span class="file">ShapeFactory.java</span></div>
+        <pre><code class="language-java">class ShapeFactory {
+    public static Shape create(String type) {
+        switch (type) {
+            case "circle": return new Circle(1);
+            case "rectangle": return new Rectangle(2, 3);
+            default: throw new IllegalArgumentException("Unknown shape: " + type);
+        }
+    }
+}</code></pre>
+
+        <h4>Observer — notify many listeners of one change</h4>
+        <div class="code-label">Subscribers react automatically when state changes <span class="file">PriceWatcher.java</span></div>
+        <pre><code class="language-java">import java.util.ArrayList;
+import java.util.List;
+
+interface PriceListener {
+    void onPriceChanged(double newPrice);
+}
+
+class Stock {
+    private double price;
+    private List&lt;PriceListener&gt; listeners = new ArrayList&lt;&gt;();
+
+    public void addListener(PriceListener l) { listeners.add(l); }
+
+    public void setPrice(double price) {
+        this.price = price;
+        for (PriceListener l : listeners) l.onPriceChanged(price);
+    }
+}
+
+public class ObserverDemo {
+    public static void main(String[] args) {
+        Stock stock = new Stock();
+        stock.addListener(p -> System.out.println("Trader A sees price: " + p));
+        stock.addListener(p -> System.out.println("Trader B sees price: " + p));
+        stock.setPrice(101.5);
+    }
+}</code></pre>
+        <p>Future updates to this module can add more patterns — Strategy, Decorator, Adapter, and others — following the same explanation-then-code structure.</p>
+      </div>
+    </section>
+
+  </div>
+</div>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p>&copy; 2026 kobir079 — built as a static site, hosted on GitHub Pages.</p>
+    <div class="footer-links">
+      <a href="https://github.com/kobir079" target="_blank" rel="noopener">GitHub</a>
+      <a href="../index.html">All courses</a>
+      <a href="../../ict/index.html">MBSTU ICT</a>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+<script src="../../assets/js/main.js"></script>
+</body>
+</html>
