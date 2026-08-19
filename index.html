@@ -3,87 +3,590 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>COURSE TITLE — kobir079</title>
-<link rel="stylesheet" href="../../assets/css/style.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
-<style>.hljs{ background:transparent !important; }</style>
+<title>Md. Kobir Hosen Portfolio</title>
+<meta name="description" content="BSc in ICT student at MBSTU — portfolio, skills and projects.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0b0e11;
+    --surface:#12161b;
+    --surface-alt:#171c22;
+    --border:#232a31;
+    --text:#ffffff;
+    --muted:#b8c0cc;
+    --accent:#6414ff;
+    --accent-dim:#8a4dff;
+    --accent-glow:rgba(100,20,255,.22);
+    --radius:14px;
+    --maxw:1080px;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Inter',system-ui,sans-serif;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  ::selection{background:var(--accent);color:#0b0e11;}
+
+  h1,h2,h3{
+    font-family:'Space Grotesk',sans-serif;
+    margin:0;
+    letter-spacing:-0.01em;
+  }
+
+  .mono{
+    font-family:'JetBrains Mono',monospace;
+  }
+
+  a{color:inherit;text-decoration:none;}
+
+  .wrap{
+    max-width:var(--maxw);
+    margin:0 auto;
+    padding:0 24px;
+  }
+
+  /* ---------- NAV ---------- */
+  header{
+    position:sticky;
+    top:0;
+    z-index:50;
+    background:rgba(11,14,17,.82);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--border);
+  }
+  nav.wrap{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    height:64px;
+  }
+  .brand{
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:600;
+    font-size:1rem;
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .brand-dot{
+    width:8px;height:8px;border-radius:50%;
+    background:var(--accent);
+    box-shadow:0 0 0 3px var(--accent-glow);
+    animation:pulse 2.4s ease-in-out infinite;
+    flex-shrink:0;
+  }
+  @keyframes pulse{
+    0%,100%{opacity:1;}
+    50%{opacity:.45;}
+  }
+  .navlinks{
+    display:flex;
+    gap:28px;
+    font-size:.9rem;
+    color:var(--muted);
+  }
+  .navlinks a{transition:color .2s;}
+  .navlinks a:hover{color:var(--accent);}
+  .navtoggle{display:none;background:none;border:none;color:var(--text);font-size:1.4rem;cursor:pointer;}
+
+  @media (max-width:720px){
+    .navlinks{
+      position:absolute;
+      top:64px;left:0;right:0;
+      background:var(--surface);
+      border-bottom:1px solid var(--border);
+      flex-direction:column;
+      padding:16px 24px;
+      gap:16px;
+      display:none;
+    }
+    .navlinks.open{display:flex;}
+    .navtoggle{display:block;}
+  }
+
+  /* ---------- SECTION shell ---------- */
+  section{
+    padding:96px 0;
+    border-bottom:1px solid var(--border);
+  }
+  .eyebrow{
+    display:inline-block;
+    font-family:'JetBrains Mono',monospace;
+    font-size:.82rem;
+    color:var(--accent);
+    margin-bottom:16px;
+    letter-spacing:.02em;
+  }
+  .eyebrow::before{content:'';}
+
+  .reveal{
+    opacity:0;
+    transform:translateY(16px);
+    transition:opacity .6s ease, transform .6s ease;
+  }
+  .reveal.in{opacity:1;transform:translateY(0);}
+
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    .reveal{opacity:1;transform:none;transition:none;}
+    .brand-dot{animation:none;}
+  }
+
+  /* ---------- HERO ---------- */
+  #home{
+    padding-top:72px;
+    padding-bottom:96px;
+    border-bottom:1px solid var(--border);
+  }
+  .hero-grid{
+    display:grid;
+    grid-template-columns:1.15fr .85fr;
+    gap:56px;
+    align-items:center;
+  }
+  @media (max-width:820px){
+    .hero-grid{grid-template-columns:1fr;gap:40px;}
+    .hero-grid{text-align:left;}
+    .hero-photo{order:-1; margin:0 auto;}
+  }
+
+  .status-pill{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    font-family:'JetBrains Mono',monospace;
+    font-size:.78rem;
+    color:var(--muted);
+    background:var(--surface);
+    border:1px solid var(--border);
+    padding:6px 12px;
+    border-radius:999px;
+    margin-bottom:24px;
+  }
+  .status-dot{
+    width:6px;height:6px;border-radius:50%;
+    background:#4ade80;
+    box-shadow:0 0 0 3px rgba(74,222,128,.18);
+  }
+
+  .hero-title{
+    font-size:clamp(2.4rem,5vw,3.6rem);
+    font-weight:700;
+    line-height:1.05;
+  }
+  .hero-title .accent{color:var(--accent);}
+  .hero-role{
+    font-family:'JetBrains Mono',monospace;
+    color:var(--muted);
+    font-size:1rem;
+    margin-top:18px;
+  }
+  .hero-desc{
+    color:var(--muted);
+    max-width:46ch;
+    margin-top:16px;
+    font-size:.98rem;
+  }
+  .hero-cta{
+    display:flex;
+    gap:12px;
+    margin-top:32px;
+    flex-wrap:wrap;
+  }
+  .btn{
+    font-family:'JetBrains Mono',monospace;
+    font-size:.86rem;
+    padding:12px 20px;
+    border-radius:8px;
+    border:1px solid var(--border);
+    transition:border-color .2s, background .2s, transform .2s;
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+  }
+  .btn-primary{
+    background:var(--accent);
+    color:#0b0e11;
+    border-color:var(--accent);
+    font-weight:600;
+  }
+  .btn-primary:hover{background:#8a4dff;transform:translateY(-1px);}
+  .btn-ghost{color:var(--text);}
+  .btn-ghost:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-1px);}
+
+  .hero-photo{
+    position:relative;
+    width:min(320px,72vw);
+    aspect-ratio:1/1;
+    margin-left:auto;
+  }
+  .hero-photo::before{
+    content:'';
+    position:absolute;
+    inset:-28px;
+    background:radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+    filter:blur(4px);
+    z-index:0;
+  }
+  .hero-photo img{
+    position:relative;
+    z-index:1;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    border-radius:24px;
+    border:1px solid var(--border);
+    display:block;
+  }
+  .photo-caption{
+    text-align:center;
+    font-family:'JetBrains Mono',monospace;
+    font-size:.72rem;
+    color:var(--muted);
+    margin-top:12px;
+  }
+
+  /* ---------- EDUCATION ---------- */
+  .edu-card{
+    display:grid;
+    grid-template-columns:auto 1fr;
+    gap:24px;
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    padding:28px;
+    align-items:center;
+  }
+  .edu-marker{
+    width:44px;height:44px;
+    border-radius:10px;
+    background:var(--surface-alt);
+    border:1px solid var(--border);
+    display:flex;align-items:center;justify-content:center;
+    color:var(--accent);
+    font-family:'JetBrains Mono',monospace;
+    font-weight:600;
+    flex-shrink:0;
+  }
+  .edu-degree{font-size:1.15rem;font-weight:600;}
+  .edu-meta{
+    color:var(--muted);
+    font-size:.92rem;
+    margin-top:6px;
+  }
+  .edu-tag{
+    display:inline-block;
+    margin-top:12px;
+    font-family:'JetBrains Mono',monospace;
+    font-size:.75rem;
+    color:var(--accent);
+    background:var(--accent-glow);
+    border-radius:6px;
+    padding:4px 10px;
+  }
+  @media (max-width:520px){
+    .edu-card{grid-template-columns:1fr;}
+  }
+
+  /* ---------- SKILLS ---------- */
+  .skills-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:16px;
+  }
+  @media (max-width:640px){
+    .skills-grid{grid-template-columns:1fr;}
+  }
+  .skill-card{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    padding:24px;
+    transition:border-color .2s, transform .2s;
+  }
+  .skill-card:hover{border-color:var(--accent-dim);transform:translateY(-2px);}
+  .skill-name{
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:600;
+    font-size:1.1rem;
+  }
+  .skill-desc{
+    color:var(--muted);
+    font-size:.86rem;
+    margin-top:6px;
+  }
+  .skill-idx{
+    font-family:'JetBrains Mono',monospace;
+    color:var(--accent);
+    font-size:.78rem;
+    margin-bottom:10px;
+    display:block;
+  }
+
+  /* ---------- PROJECTS ---------- */
+  .projects-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:20px;
+  }
+  @media (max-width:900px){
+    .projects-grid{grid-template-columns:1fr;}
+  }
+  .project-card{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    padding:26px;
+    display:flex;
+    flex-direction:column;
+    transition:border-color .2s, transform .2s;
+  }
+  .project-card:hover{border-color:var(--accent-dim);transform:translateY(-3px);}
+  .project-cat{
+    font-family:'JetBrains Mono',monospace;
+    font-size:.72rem;
+    color:var(--muted);
+    text-transform:uppercase;
+    letter-spacing:.06em;
+    margin-bottom:10px;
+  }
+  .project-title{
+    font-size:1.15rem;
+    font-weight:600;
+    margin-bottom:10px;
+  }
+  .project-desc{
+    color:var(--muted);
+    font-size:.9rem;
+    flex-grow:1;
+  }
+  .project-stack{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    margin-top:18px;
+  }
+  .stack-pill{
+    font-family:'JetBrains Mono',monospace;
+    font-size:.72rem;
+    color:var(--accent);
+    background:var(--accent-glow);
+    border-radius:6px;
+    padding:4px 9px;
+  }
+
+  /* ---------- CONTACT ---------- */
+  #contact{border-bottom:none;}
+  .contact-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:16px;
+  }
+  @media (max-width:720px){
+    .contact-grid{grid-template-columns:1fr;}
+  }
+  .contact-card{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    padding:24px;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    transition:border-color .2s, transform .2s;
+  }
+  .contact-card:hover{border-color:var(--accent);transform:translateY(-2px);}
+  .contact-label{
+    font-family:'JetBrains Mono',monospace;
+    font-size:.75rem;
+    color:var(--muted);
+    text-transform:uppercase;
+    letter-spacing:.06em;
+  }
+  .contact-value{
+    font-size:1rem;
+    font-weight:500;
+    word-break:break-word;
+  }
+  .contact-arrow{color:var(--accent);font-family:'JetBrains Mono',monospace;}
+
+  footer{
+    padding:32px 0 48px;
+    text-align:center;
+    color:var(--muted);
+    font-family:'JetBrains Mono',monospace;
+    font-size:.8rem;
+  }
+  footer .accent{color:var(--accent);}
+</style>
 </head>
 <body>
 
-<header class="site-header">
-  <div class="wrap bar">
-    <a href="../../index.html" class="brand"><span class="dot">&#9632;</span> kobir079<span style="color:var(--ink-soft); font-weight:400;">/course-library</span></a>
-    <nav class="main-nav">
-      <a href="../index.html">Courses</a>
-      <a href="../../ict/index.html" class="ict-badge">
-        <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect x="1" y="1" width="38" height="38" rx="4" stroke="#0B2E4A" stroke-width="2" fill="#F3F8FB"/>
-          <circle cx="20" cy="12" r="4" fill="#1B5A82"/>
-          <circle cx="10" cy="28" r="4" fill="#E8A33D"/>
-          <circle cx="30" cy="28" r="4" fill="#E8A33D"/>
-          <path d="M20 16 L10 24 M20 16 L30 24" stroke="#0B2E4A" stroke-width="2"/>
-        </svg>
-        <span class="txt"><b>MBSTU</b>ICT Dept.</span>
-      </a>
-    </nav>
-  </div>
+<header>
+  <nav class="wrap">
+    <div class="brand"><span class="brand-dot"></span>Kobir</div>
+    <button class="navtoggle" id="navToggle" aria-label="Toggle menu">☰</button>
+    <div class="navlinks" id="navLinks">
+      <a href="#home">Home</a>
+      <a href="#education">Education</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </nav>
 </header>
 
 <main>
-<div class="wrap course-shell">
 
-  <aside class="course-toc">
-    <div class="toc-title">Modules</div>
-    <ol>
-      <li><a href="#m1">Module 1 title</a></li>
-      <li><a href="#m2">Module 2 title</a></li>
-      <!-- add more <li><a href="#mN">...</a></li> as needed -->
-    </ol>
-  </aside>
-
-  <div>
-    <div class="course-intro">
-      <div class="eyebrow">Course</div>
-      <h1>COURSE TITLE</h1>
-      <p class="lead">One or two sentences describing what this course covers.</p>
-      <div class="course-meta">
-        <div><b>N</b>Modules</div>
-        <div><b>LANGUAGE</b>Language</div>
-        <div><b>LEVEL</b>Level</div>
-        <div><b>kobir079</b>Author</div>
+  <!-- HOME -->
+  <section id="home">
+    <div class="wrap hero-grid">
+      <div>
+        <div class="status-pill"><span class="status-dot"></span>Open to opportunities</div>
+        <h1 class="hero-title">Hi, I'm <span class="accent">Md. Kobir Hosen</span></h1>
+        <div class="hero-role">$ BSc in ICT · Mawlana Bhashani Science and Technology University</div>
+        <p class="hero-desc">I build things across the stack — from Java web applications to C/C++ embedded systems — and enjoy turning small ideas into working software and hardware.</p>
+        <div class="hero-cta">
+          <a class="btn btn-primary" href="#projects">View Projects</a>
+          <a class="btn btn-ghost" href="#contact">Get in Touch</a>
+        </div>
+      </div>
+      <div>
+        <div class="hero-photo">
+          <!-- Replace assets/profile.jpg with your own 1080x1080 photo (keep the same filename, or update this src) -->
+          <img src="assets/profile.jpeg" alt="Portrait placeholder — swap in your own 1080x1080 photo" width="1080" height="1080">
+        </div>
+    
       </div>
     </div>
+  </section>
 
-    <section class="module" id="m1">
-      <div class="mod-head"><span class="num">01</span><h3>Module 1 title</h3></div>
-      <div class="mod-body">
-        <p>Explanation goes here.</p>
-        <h4>Code example</h4>
-        <div class="code-label">What this snippet shows <span class="file">Example.java</span></div>
-        <pre><code class="language-java">// code goes here</code></pre>
+  <!-- EDUCATION -->
+  <section id="education">
+    <div class="wrap reveal">
+      <span class="eyebrow">$ education</span>
+      <div class="edu-card">
+        <div class="edu-marker mono">01</div>
+        <div>
+          <div class="edu-degree">B.Sc. in Information and Communication Technology (ICT)</div>
+          <div class="edu-meta">Mawlana Bhashani Science and Technology University (MBSTU) · Department of ICT</div>
+          <span class="edu-tag">In Progress</span>
+        </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- duplicate the &lt;section class="module"&gt; block above for each module -->
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="wrap reveal">
+      <span class="eyebrow">&gt; skills</span>
+      <div class="skills-grid">
+        <div class="skill-card">
+          <span class="skill-idx">01 / lang</span>
+          <div class="skill-name">C / C++</div>
+          <div class="skill-desc">Structured & object-oriented programming, systems and embedded logic.</div>
+        </div>
+        <div class="skill-card">
+          <span class="skill-idx">02 / lang</span>
+          <div class="skill-name">Java</div>
+          <div class="skill-desc">Core OOP, server-side development with Servlets and SQL-backed apps.</div>
+        </div>
+        <div class="skill-card">
+          <span class="skill-idx">03 / lang</span>
+          <div class="skill-name">Python</div>
+          <div class="skill-desc">Scripting, problem solving, and general-purpose programming.</div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-  </div>
-</div>
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="wrap reveal">
+      <span class="eyebrow">// projects</span>
+      <div class="projects-grid">
+        <div class="project-card">
+          <div class="project-cat">Web Application</div>
+          <div class="project-title">Java Servlet Quiz Game</div>
+          <p class="project-desc">A server-side quiz application built with Java Servlets, backed by a SQL database for questions, scoring, and session handling.</p>
+          <div class="project-stack">
+            <span class="stack-pill">Java</span>
+            <span class="stack-pill">Servlet</span>
+            <span class="stack-pill">SQL</span>
+          </div>
+        </div>
+        <div class="project-card">
+          <div class="project-cat">IoT / Embedded</div>
+          <div class="project-title">IoT-Based Street Light Control System</div>
+          <p class="project-desc">An automated street light system using an ESP32 microcontroller to sense ambient conditions and control lighting in real time.</p>
+          <div class="project-stack">
+            <span class="stack-pill">C++</span>
+            <span class="stack-pill">ESP32</span>
+          </div>
+        </div>
+        <div class="project-card">
+          <div class="project-cat">Desktop Application</div>
+          <div class="project-title">Smart Calculator</div>
+          <p class="project-desc">A calculator application built in C++, focused on clean logic for parsing and evaluating expressions.</p>
+          <div class="project-stack">
+            <span class="stack-pill">C++</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="wrap reveal">
+      <span class="eyebrow">~ contact</span>
+      <div class="contact-grid">
+        <a class="contact-card" href="mailto:it24030@mbstu.ac.bd">
+          <span class="contact-label">Email</span>
+          <span class="contact-value">it24030@mbstu.ac.bd</span>
+          <span class="contact-arrow">↗</span>
+        </a>
+        <a class="contact-card" href="https://github.com/kobir079" target="_blank" rel="noopener">
+          <span class="contact-label">GitHub</span>
+          <span class="contact-value">https://github.com/kobir079</span>
+          <span class="contact-arrow">↗</span>
+        </a>
+        <a class="contact-card" href="https://linkedin.com/in/yourusername" target="_blank" rel="noopener">
+          <span class="contact-label">LinkedIn</span>
+          <!-- <span class="contact-value">linkedin.com/in/KobirHosen</span> -->
+          <span class="contact-arrow">↗</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
 </main>
 
-<footer class="site-footer">
-  <div class="wrap">
-    <p>&copy; 2026 kobir079 — built as a static site, hosted on GitHub Pages.</p>
-    <div class="footer-links">
-      <a href="https://github.com/kobir079" target="_blank" rel="noopener">GitHub</a>
-      <a href="../index.html">All courses</a>
-      <a href="../../ict/index.html">MBSTU ICT</a>
-    </div>
-  </div>
+<footer>
+  <div class="wrap">© <span id="year"></span> <span class="accent">Kobir Hosen</span> · Built with a dark terminal in mind.</div>
 </footer>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/java.min.js"></script>
-<script>hljs.highlightAll();</script>
-<script src="../../assets/js/main.js"></script>
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  const toggle = document.getElementById('navToggle');
+  const links = document.getElementById('navLinks');
+  toggle.addEventListener('click', () => links.classList.toggle('open'));
+  links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => links.classList.remove('open')));
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('in'); });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+
 </body>
 </html>
